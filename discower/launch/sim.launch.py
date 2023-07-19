@@ -85,28 +85,17 @@ def generate_launch_description():
         # Start the descriptions (ISS, dock, granite) for visualization purposes
         # Start ground controller services
         IncludeLaunchDescription(
-            get_launch_file("launch/controller/rviz.launch.py"),
+            get_launch_file("launch/controller/rviz.launch.py", "discower"),
             condition=IfCondition(LaunchConfiguration("rviz")),
             launch_arguments={"world": LaunchConfiguration("world")}.items(),
         ),
-        # Launch a recorder for this robot
-        IncludeLaunchDescription(
-            get_launch_file("launch/controller/bagrecord.launch.py"),
-            condition=LaunchConfigurationNotEquals("rec", ""),
-            launch_arguments={"bag": LaunchConfiguration("rec")}.items(),
-        ),
-        #   <!-- Allow the simulator to be optionally launched remotely-->
-        #   <!-- Connect and update environment variables if required -->
-        #   <machine unless="$(eval arg('sim')=='local')" name="sim_server" default="true"
-        #            address="$(arg sim)" user="astrobee" password="astrobee" timeout="10"/>
 
         # Start the simulator
         IncludeLaunchDescription(
-            get_launch_file("launch/controller/sim_start.launch.py"),
+            get_launch_file("launch/controller/sim_start.launch.py", "discower"),
             launch_arguments={
                 "world"  : LaunchConfiguration("world"),
                 "sviz"   : LaunchConfiguration("sviz"),
-                "vmware" : LaunchConfiguration("vmware"),
                 "speed"  : LaunchConfiguration("speed"),
                 "debug"  : LaunchConfiguration("debug"),
                 "physics": LaunchConfiguration("physics"),
@@ -114,12 +103,12 @@ def generate_launch_description():
         ),
         # Launch files
         IncludeLaunchDescription(
-            get_launch_file("launch/controller/descriptions.launch.py"),
+            get_launch_file("launch/controller/descriptions.launch.py", "discower"),
             launch_arguments={"world": LaunchConfiguration("world")}.items(),
         ),
         # Insert Orion
         IncludeLaunchDescription(
-            get_launch_file("launch/spawn.launch.py"),
+            get_launch_file("launch/spawn.launch.py", "discower"),
             launch_arguments={
                 "robot" : LaunchConfiguration("robot"),      # Type of robot
                 "world" : LaunchConfiguration("world"),      # Execution context
@@ -140,7 +129,7 @@ def generate_launch_description():
         ),
         # Insert Apollo
         IncludeLaunchDescription(
-            get_launch_file("launch/spawn.launch.py"),
+            get_launch_file("launch/spawn.launch.py", "discower"),
             launch_arguments={
                 "robot" : LaunchConfiguration("robot"),       # Type of robot
                 "world" : LaunchConfiguration("world"),       # Execution context
@@ -161,7 +150,7 @@ def generate_launch_description():
         ),
         # Insert Leo
         IncludeLaunchDescription(
-            get_launch_file("launch/spawn.launch.py"),
+            get_launch_file("launch/spawn.launch.py", "discower"),
             launch_arguments={
                 "robot" : LaunchConfiguration("robot"),       # Type of robot
                 "world" : LaunchConfiguration("world"),       # Execution context

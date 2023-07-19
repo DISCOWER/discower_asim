@@ -45,7 +45,7 @@ def generate_launch_description():
                                 condition=LaunchConfigurationNotEquals("sim", "local")),
 
         IncludeLaunchDescription(
-            get_launch_file("launch/spawn_discower.launch.py", "astrobee_gazebo"),
+            get_launch_file("launch/spawn_discower.launch.py", "discower_gazebo"),
             launch_arguments={
                 "ns"  : LaunchConfiguration("ns"),
                 "pose": LaunchConfiguration("pose")

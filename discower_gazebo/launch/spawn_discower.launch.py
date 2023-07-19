@@ -15,23 +15,22 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-cmake_minimum_required(VERSION 3.5)
-project(discower_cosmo)
+from utilities.utilities import *
 
-# Find amend and libraries
-find_package(ament_cmake REQUIRED)
 
-#############
-## Install ##
-#############
+def generate_launch_description():
 
-ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.dsv.in")
+    return LaunchDescription([
+        DeclareLaunchArgument("ns",    default_value=""),     # Robot namespace
+        DeclareLaunchArgument("pose"),                        # Robot pose
 
-install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY media DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY meshes DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY worlds DESTINATION share/${PROJECT_NAME})
-
-install(PROGRAMS model.config DESTINATION share/${PROJECT_NAME})
-
-ament_package()
+        Node(
+            package='astrobee_gazebo',
+            executable='spawn_entity.py',
+            name='spawn_astrobee',
+            output='screen',
+            namespace=LaunchConfiguration("ns"),
+            arguments=["-topic", "robot_description", "-entity", LaunchConfiguration("ns"), "-timeout", "30.0", "-robot_namespace", LaunchConfiguration("ns"),
+                       "-pose", LaunchConfiguration("pose")]
+        ),
+    ])

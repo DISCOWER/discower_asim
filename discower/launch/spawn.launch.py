@@ -85,7 +85,7 @@ def generate_launch_description():
 
         # If we need to load synthetic drivers (we are not running on a real robot)
         IncludeLaunchDescription(
-            get_launch_file("launch/spawn_discower.launch.py", "astrobee_gazebo"),
+            get_launch_file("launch/spawn_discower.launch.py", "discower_gazebo"),
             launch_arguments={
                 "ns"  : LaunchConfiguration("ns"),
                 "pose": LaunchConfiguration("pose")
@@ -95,7 +95,7 @@ def generate_launch_description():
             actions=[PushRosNamespace(LaunchConfiguration('ns')),
                 # LLP
                 IncludeLaunchDescription(
-                    get_launch_file("launch/robot/LLP.launch.py"),
+                    get_launch_file("launch/robot/LLP.launch.py", "discower"),
                     launch_arguments={
                         "drivers": LaunchConfiguration("drivers"),  # Don't start driver nodes
                         "spurn"  : LaunchConfiguration("spurn"),    # Prevent node
@@ -110,7 +110,7 @@ def generate_launch_description():
 
                 # MLP
                 IncludeLaunchDescription(
-                    get_launch_file("launch/robot/MLP.launch.py"),
+                    get_launch_file("launch/robot/MLP.launch.py", "discower"),
                     launch_arguments={
                         "drivers": LaunchConfiguration("drivers"), # Don't start driver nodes
                         "spurn"  : LaunchConfiguration("spurn"),   # Prevent node

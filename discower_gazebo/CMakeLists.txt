@@ -16,10 +16,21 @@
 # under the License.
 
 cmake_minimum_required(VERSION 3.5)
-project(discower_cosmo)
+project(discower_gazebo)
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -O3 -fPIC" )
 
 # Find amend and libraries
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+
+find_package(gazebo_dev REQUIRED)
+find_package(gazebo_ros REQUIRED)
 
 #############
 ## Install ##
@@ -27,11 +38,15 @@ find_package(ament_cmake REQUIRED)
 
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.dsv.in")
 
-install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY media DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY meshes DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY worlds DESTINATION share/${PROJECT_NAME})
 
-install(PROGRAMS model.config DESTINATION share/${PROJECT_NAME})
+# Also install some other resources
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
+
+
+# Mark launch files for installation
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+  PATTERN ".svn" EXCLUDE)
 
 ament_package()
+

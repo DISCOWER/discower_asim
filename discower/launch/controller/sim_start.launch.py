@@ -23,15 +23,13 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument("world", default_value="iss"),     # Robot namespace
         DeclareLaunchArgument("sviz",    default_value="false"),    # Robot pose
-        DeclareLaunchArgument("vmware",  default_value="true"),    # Robot description
         DeclareLaunchArgument("speed",   default_value="1"),       # Robot description
         DeclareLaunchArgument("debug",   default_value="false"),   # Robot description
         DeclareLaunchArgument("physics", default_value="ode"),     # Robot description
 
-        SetEnvironmentVariable(name='SVGA_VGPU10', value='0', condition=IfCondition(LaunchConfiguration('vmware'))),
 
         IncludeLaunchDescription(
-            get_launch_file('launch/start_simulation.launch.py', 'astrobee_gazebo'),
+            get_launch_file('launch/start_simulation.launch.py', 'discower_gazebo'),
             launch_arguments = {'world':   LaunchConfiguration('world'),         # Execution context
                                 'gui':     LaunchConfiguration('sviz',),      # Robot namespace
                                 'speed':   LaunchConfiguration('speed'),   # Output for logging

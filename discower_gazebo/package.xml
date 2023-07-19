@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>discower</name>
+  <name>discower_gazebo</name>
   <version>0.0.0</version>
-  <description>The DISCOWER package provides DISCOWER simulation functionality to Astrobee.
+  <description>
+    Gazebo plugins for the DISCOWER Astrobee simulatation
   </description>
   <license>
-  	Apache License, Version 2.0
+    Apache License, Version 2.0
   </license>
   <author email="info@discower.io">
     DISCOWER Team
@@ -15,8 +16,14 @@
   </maintainer>
   <build_depend>ament_cmake</build_depend>
   <build_depend>rclcpp</build_depend>
-  <exec_depend>rclcpp</exec_depend>
+
+  <depend>gazebo_dev</depend>
+  <depend>gazebo_ros</depend>
+  
   <export>
     <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_plugin_path="${prefix}/lib"/>
+    <gazebo_ros plugin_path="${prefix}" />
+    <gazebo_ros gazebo_media_path="${prefix}/worlds"/>
   </export>
 </package>

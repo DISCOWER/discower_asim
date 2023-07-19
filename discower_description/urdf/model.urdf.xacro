@@ -65,11 +65,11 @@
 
   <!-- MODEL-->
   <xacro:include filename="$(find discower_description)/urdf/model_drag.urdf.xacro" />
-  <xacro:include filename="$(find discower_description)/urdf/model_pmc.urdf.xacro" />
+  <!-- <xacro:include filename="$(find discower_description)/urdf/model_pmc.urdf.xacro" /> -->
   <xacro:include filename="$(find discower_description)/urdf/model_truth.urdf.xacro" />
-  <xacro:include filename="$(find discower_description)/urdf/model_speed_cam.urdf.xacro" />
+  <!-- <xacro:include filename="$(find discower_description)/urdf/model_speed_cam.urdf.xacro" /> -->
   <!-- <xacro:include filename="$(find discower_description)/urdf/model_sitl.urdf.xacro" /> -->
 
   <!-- SENSORS -->
-  <xacro:include filename="$(find discower_description)/urdf/sensor_imu.urdf.xacro" />
+  <!-- <xacro:include filename="$(find discower_description)/urdf/sensor_imu.urdf.xacro" /> -->
 </robot>

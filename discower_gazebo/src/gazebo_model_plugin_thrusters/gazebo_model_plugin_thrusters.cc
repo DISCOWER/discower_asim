@@ -43,7 +43,7 @@ class GazeboModelPluginThrusters : public FreeFlyerModelPlugin {
 
   // Constructor
   GazeboModelPluginThrusters() : FreeFlyerModelPlugin("thrusters_actuator", "", true),
-    thrusters_enabled_(true), bypass_thrusters_model_(true) {
+    bypass_thrusters_model_(true) {
 
   }
 
@@ -72,7 +72,7 @@ class GazeboModelPluginThrusters : public FreeFlyerModelPlugin {
       control_rate_hz_ = 10.0;
     }
 
-    // Now register to be called back every time FAM has new wrench
+    // Now register to be called back every time the Thrusters receive a new wrench
     if (bypass_thrusters_model_)
       sub_wrench_ = FF_CREATE_SUBSCRIBER(nh, geometry_msgs::Wrench,
         TOPIC_GNC_CTL_COMMAND, 5,
@@ -92,16 +92,10 @@ class GazeboModelPluginThrusters : public FreeFlyerModelPlugin {
 
   // This is called whenever the controller has new force/torque to apply
   void WrenchCallback(geometry_msgs::Wrench const& msg) {
-    if (thrusters_enabled_)
-      SendFamCommand(msg);
+      wrench_ = msg;
   }
 
-  // Send a FAM command to the PMCs to those specifi
-  void SendFamCommand(geometry_msgs::Wrench const& msg) {
-    wrench_ = msg;
-  }
-
-  // Must be called at 62.5Hz to satisfy the needs of GNC
+  // This is called at 10Hz to resemble the real system - the frequency can be changed from the parameters
   void CommandTimerCallback() {
     force_ = ignition::math::Vector3d(wrench_.force.x, wrench_.force.y, wrench_.force.z);
     torque_ = ignition::math::Vector3d(wrench_.torque.x, wrench_.torque.y, wrench_.torque.z);
@@ -120,16 +114,15 @@ class GazeboModelPluginThrusters : public FreeFlyerModelPlugin {
   }
 
  private:
-  rclcpp::Subscription<geometry_msgs::Wrench>::SharedPtr sub_wrench_;         // Fam command subscriber
-  ff_util::FreeFlyerTimer timer_command_;               // Timers
+  rclcpp::Subscription<geometry_msgs::Wrench>::SharedPtr sub_wrench_;    // Body-Thruster command subscriber
+  ff_util::FreeFlyerTimer timer_command_;                                // Timers
   event::ConnectionPtr update_;                                          // Update event from gazeo
   ignition::math::Vector3d force_;                                       // Current body-frame force
   ignition::math::Vector3d torque_;                                      // Current body-frame torque
 
   geometry_msgs::Wrench wrench_;                                         // Used when bypassing PMC
 
-  bool thrusters_enabled_;                                                     // Is the PMC enabled?
-  bool bypass_thrusters_model_;                                             // Bypass the blower model
+  bool bypass_thrusters_model_;                                          // Bypass the blower model
 
   double control_rate_hz_;                                               // Control rate
   double max_timeout_;                                                   // Maximum timeout allowed for PMC

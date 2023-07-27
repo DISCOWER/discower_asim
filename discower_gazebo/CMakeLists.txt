@@ -32,11 +32,45 @@ find_package(rclcpp REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_ros REQUIRED)
 
+find_package(ff_common REQUIRED)
+find_package(ff_util REQUIRED)
+find_package(ff_msgs REQUIRED)
+find_package(diagnostic_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(astrobee_gazebo REQUIRED)
+
+#############
+##  Build  ##
+#############
+include_directories(
+  include
+  ${GAZEBO_INCLUDE_DIRS}
+  ${astrobee_gazebo_INCLUDE_DIRS}
+)
+
+add_library(gazebo_model_plugin_thrusters SHARED
+  src/gazebo_model_plugin_thrusters/gazebo_model_plugin_thrusters.cc
+)
+
+# target_link_libraries(gazebo_model_plugin_thrusters)
+ament_target_dependencies(gazebo_model_plugin_thrusters rclcpp gazebo_dev gazebo_ros ff_common ff_util ff_msgs diagnostic_msgs geometry_msgs tf2)
+ament_export_libraries(gazebo_model_plugin_thrusters)
+
+
 #############
 ## Install ##
 #############
 
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.dsv.in")
+
+# Install plugins
+install(TARGETS
+  gazebo_model_plugin_thrusters
+  ARCHIVE DESTINATION lib/${PROJECT_NAME}
+  LIBRARY DESTINATION lib/${PROJECT_NAME}
+  RUNTIME DESTINATION bin
+)
 
 
 # Also install some other resources

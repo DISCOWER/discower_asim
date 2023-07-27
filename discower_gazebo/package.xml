@@ -19,6 +19,7 @@
 
   <depend>gazebo_dev</depend>
   <depend>gazebo_ros</depend>
+  <depend>astrobee_gazebo</depend>
   
   <export>
     <build_type>ament_cmake</build_type>

@@ -19,17 +19,9 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <gazebo>
-    <plugin name="llp_disk_monitor" filename="libgazebo_model_plugin_heartbeat.so">
-      <plugin_name>llp_disk_monitor</plugin_name>
-    </plugin>
-    <plugin name="mlp_disk_monitor" filename="libgazebo_model_plugin_heartbeat.so">
-      <plugin_name>mlp_disk_monitor</plugin_name>
-    </plugin>
-    <plugin name="llp_cpu_mem_monitor" filename="libgazebo_model_plugin_heartbeat.so">
-      <plugin_name>llp_cpu_mem_monitor</plugin_name>
-    </plugin>
-    <plugin name="mlp_cpu_mem_monitor" filename="libgazebo_model_plugin_heartbeat.so">
-      <plugin_name>mlp_cpu_mem_monitor</plugin_name>
+    <plugin name="thrusters_ros" filename="libgazebo_model_plugin_thrusters.so">
+      <rate>10.0</rate>
+      <bypass_thrusters_model>true</bypass_thrusters_model>
     </plugin>
   </gazebo>
 </robot>

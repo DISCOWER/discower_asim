@@ -37,13 +37,13 @@ def generate_launch_description():
         launch_arg("dds",     default_value="false",  description="Enable DDS"),
         launch_arg("gtloc",   default_value="true", description="Use Ground Truth Localizer"),
         launch_arg("perch",   default_value="false", description="Start in the perch position"),
-        
+
         # General options
         launch_arg("rviz",   default_value="false",  description="Start Rviz visualization"),
-        launch_arg("sviz",   default_value="false",  description="Start Gazebo visualization"),
+        launch_arg("sviz",   default_value="true",  description="Start Gazebo visualization"),
         launch_arg("speed",  default_value="1",      description="Speed multiplier"),
         launch_arg("sdebug", default_value="false",  description="Debug simulator "),
-      
+
         launch_arg("orion", default_value="true", description="Insert Orion robot"),
         launch_arg("apollo", default_value="false", description="Insert Apollo robot"),
         launch_arg("leo", default_value="false", description="Insert Leo robot"),

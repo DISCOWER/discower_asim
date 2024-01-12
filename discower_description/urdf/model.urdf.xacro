@@ -34,20 +34,20 @@
  <link name="${prefix}body">
     <self_collide>false</self_collide>
     <!-- body -->
-    <visual name="body_visual">
+    <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://discower_platforms/meshes/proto.dae"/>
       </geometry>
     </visual>
-    <collision name="body_collision">
+    <collision>
       <origin xyz="0 0 0.25" rpy="0 0 0" />
       <geometry>
         <cylinder length="0.5" radius="0.2"/>
       </geometry>
     </collision>
-    
   </link>
+
   <!-- This is a workaround for KDL -->
   <link name="${prefix}inertial_link">
     <self_collide>false</self_collide>
@@ -62,6 +62,14 @@
     <parent link="${prefix}body" />
     <child link="${prefix}inertial_link" />
   </joint>
+
+  <gazebo reference="${prefix}body">
+    <kp>100000.0</kp>
+    <kd>100000.0</kd>
+    <mu1>0.0</mu1>
+    <mu2>0.</mu2>
+    <fdir1>0 0 1</fdir1>
+  </gazebo>
 
   <!-- MODEL-->
   <xacro:include filename="$(find discower_description)/urdf/model_drag.urdf.xacro" />

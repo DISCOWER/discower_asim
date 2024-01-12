@@ -119,46 +119,6 @@
       <cast_shadows>0</cast_shadows>
       <direction>0 0 -1</direction>
     </light>
-    <model name='walls'>
-      <static>1</static>
-      <pose frame=''>0 0 0 0 0 0</pose>
-      <link name='walls'>
-        <collision name='collision_east'>
-         <pose frame=''>0 6 -1.5 0 0 0</pose>
-         <geometry>
-            <box>
-              <size>6 0.2 5</size>
-            </box>
-            </geometry>
-        </collision>
-        <collision name='collision_west'>
-         <pose frame=''>0 -6 -1.5 0 0 0</pose>
-         <geometry>
-            <box>
-              <size>6 0.2 5</size>
-            </box>
-            </geometry>
-        </collision>
-        <collision name='collision_north'>
-         <pose frame=''>3 0 -1.5 0 0 0</pose>
-         <geometry>
-            <box>
-              <size>0.2 12 5</size>
-            </box>
-            </geometry>
-        </collision>
-        <collision name='collision_south'>
-         <pose frame=''>-3 0 -1.5 0 0 0</pose>
-         <geometry>
-            <box>
-              <size>0.2 12 5</size>
-            </box>
-            </geometry>
-        </collision>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-      </link>
-    </model>
     <plugin name="plugin_speed" filename="libgazebo_world_plugin_speed.so"/>
   </world>
 </sdf>

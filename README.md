@@ -5,6 +5,8 @@ The DISCOWER Astrobee Simulation package contains the following components:
 * DISCOWER Free Flyers Gazebo Plugins: thrusters, PX4 SITL
 * DISCOWER Launch files
 
+![DISCOWER Astrobee Simulation](https://github.com/DISCOWER/discower_asim/blob/main/discower/doc/images/simulator.png)
+
 ## Installation
 Make sure that you have ROS Humble installed on your system. Support for ROS Foxy was not tested.
 

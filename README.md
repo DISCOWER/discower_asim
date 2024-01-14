@@ -36,8 +36,8 @@ git submodule update --init --recursive submodules/px4
 cd scripts/setup
 ./add_ros_repository.sh
 sudo apt-get update
-cd debians
-./build_install_debians.sh
+cd sources
+./build_install_sources.sh
 cd ../
 ./install_desktop_packages.sh
 sudo rosdep init

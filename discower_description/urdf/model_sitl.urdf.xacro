@@ -18,8 +18,8 @@
       <hil_mode>0</hil_mode>
       <hil_state_level>0</hil_state_level>
       <send_vision_estimation>0</send_vision_estimation>
-      <send_odometry>1</send_odometry>
-      <enable_lockstep>1</enable_lockstep>
+      <send_odometry>0</send_odometry>
+      <enable_lockstep>0</enable_lockstep>
       <use_tcp>1</use_tcp>
       <motorSpeedCommandPubTopic>/gazebo/command/motor_speed</motorSpeedCommandPubTopic>
       <control_channels>
@@ -119,4 +119,5 @@
         </channel>
       </control_channels>
     </plugin>
+  </gazebo>
 </robot>

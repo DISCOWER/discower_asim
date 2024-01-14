@@ -8,7 +8,7 @@ The DISCOWER Astrobee Simulation package contains the following components:
 ![DISCOWER Astrobee Simulation](https://github.com/DISCOWER/discower_asim/blob/main/discower/doc/images/simulator.png)
 
 ## Installation
-Make sure that you have ROS Humble installed on your system. Support for ROS Foxy was not tested.
+Make sure that you have ROS Humble installed on your system. Support for ROS Foxy was not tested. Make sure that you have SSH Keys synced with GitHub. If you don't have SSH Keys, follow [this tutorial](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to generate them.
 
 0. Install all dependencies
 ```bash
@@ -18,7 +18,7 @@ sudo apt-get install build-essential git
 1. Clone [DISCOWER Astrobee Simulation](https://github.com/DISCOWER/astrobee) into a clean workspace
 ```bash
 cd ~/.
-mkdir -p discower_ws
+mkdir discower_ws
 cd discower_ws/
 git clone git@github.com:DISCOWER/astrobee.git src
 ```
@@ -27,7 +27,8 @@ git clone git@github.com:DISCOWER/astrobee.git src
 ```bash
 cd src/
 git submodule update --init --depth 1 description/media
-git submodule update --init --depth 1 discower
+git submodule update --init discower
+git submodule update --init --recursive submodules/px4
 ```
 
 3. Install all dependencies
@@ -55,7 +56,7 @@ source install/local_setup.bash
 ```
 
 ## Usage
-To lanch the simulation, run the following command:
+To launch the simulation, run the following command:
 ```bash
 ros2 launch discower sim.launch.py
 ```

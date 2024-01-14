@@ -19,37 +19,55 @@ from utilities.utilities import *
 
 
 def generate_launch_description():
-    world_file = [get_path("worlds", "discower_cosmo"), "/", LaunchConfiguration('world'), ".world"]
-    config_file = ["--ros-args ", "--params-file ", get_path("config", "discower_gazebo"), "/", "params.yaml"]
+    world_file = [
+        get_path("worlds", "discower_cosmo"),
+        "/",
+        LaunchConfiguration("world"),
+        ".world",
+    ]
+    config_file = [
+        "--ros-args ",
+        "--params-file ",
+        get_path("config", "discower_gazebo"),
+        "/",
+        "params.yaml",
+    ]
     # extra_gazebo_args = ["--ros-args", "--params-file", config_file]
-    return LaunchDescription([
-        DeclareLaunchArgument("gui", default_value="true"),
-        DeclareLaunchArgument("speed",   default_value="1"),
-        DeclareLaunchArgument("debug",   default_value="false"),
-        DeclareLaunchArgument("physics",   default_value="ode"),
-        DeclareLaunchArgument("paused",   default_value="true"),
-
-
-        SetEnvironmentVariable(name='GAZEBO_RESOURCE_PATH', value="/usr/share/gazebo-11"),
-
-#   <param name="/simulation_speed" value="$(arg speed)" />
-# TODO(@mgouveia): Not sure what to do about the speed, I think I'll have to pass it to
-# the plugin through sdf robot description since I can't set the parameter here
-
-        IncludeLaunchDescription(
-            get_launch_file( 'launch/gzserver.launch.py', 'gazebo_ros'),
-            launch_arguments = {
-                                'world':   world_file,      # Execution context
-                                'verbose': LaunchConfiguration('debug'),   # Debug a node set
-                                'physics': LaunchConfiguration('physics'), # SIM IP address
-                                'extra_gazebo_args': config_file,
-                                'paused': LaunchConfiguration('paused'),
-                                }.items(),
-        ),
-        IncludeLaunchDescription(
-            get_launch_file( 'launch/gzclient.launch.py', 'gazebo_ros'),
-            launch_arguments = {'verbose':   LaunchConfiguration('debug'),      # Debug a node set
-                                }.items(),
-            condition=IfCondition(LaunchConfiguration('gui'))
-        ),
-    ])
+    return LaunchDescription(
+        [
+            DeclareLaunchArgument("gui", default_value="true"),
+            DeclareLaunchArgument("speed", default_value="1"),
+            DeclareLaunchArgument("debug", default_value="false"),
+            DeclareLaunchArgument("physics", default_value="ode"),
+            DeclareLaunchArgument("paused", default_value="true"),
+            SetEnvironmentVariable(
+                name="GAZEBO_RESOURCE_PATH", value="/usr/share/gazebo-11"
+            ),
+            #   <param name="/simulation_speed" value="$(arg speed)" />
+            # TODO(@mgouveia): Not sure what to do about the speed, I think I'll have to pass it to
+            # the plugin through sdf robot description since I can't set the parameter here
+            IncludeLaunchDescription(
+                get_launch_file("launch/gzserver.launch.py", "gazebo_ros"),
+                launch_arguments={
+                    "world": world_file,  # Execution context
+                    "verbose": LaunchConfiguration("debug"),  # Debug a node set
+                    "physics": LaunchConfiguration("physics"),  # SIM IP address
+                    "extra_gazebo_args": config_file,
+                    "paused": LaunchConfiguration("paused"),
+                }.items(),
+            ),
+            IncludeLaunchDescription(
+                get_launch_file("launch/gzclient.launch.py", "gazebo_ros"),
+                launch_arguments={
+                    "verbose": LaunchConfiguration("debug"),  # Debug a node set
+                }.items(),
+                condition=IfCondition(LaunchConfiguration("gui")),
+            ),
+            IncludeLaunchDescription(
+                get_launch_file("launch/px4.launch.py", "discower_gazebo"),
+                launch_arguments={
+                    "id": "0",
+                }.items(),
+            ),
+        ]
+    )

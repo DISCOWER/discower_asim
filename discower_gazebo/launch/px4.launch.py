@@ -11,15 +11,24 @@ def generate_launch_description():
 
     px4_dir = get_package_share_directory("px4")
 
-    return LaunchDescription([
+    return LaunchDescription(
+        [
             DeclareLaunchArgument("id", default_value="0"),
             ExecuteProcess(
                 cmd=[
+                    "gnome-terminal",
+                    "--",
                     px4_dir + "/build/px4_sitl_default/bin/px4",
-                    px4_dir + "/build/px4_sitl_default/etc", "-s", "etc/init.d-posix/rcS",
-                    "-i", LaunchConfiguration("id"),
+                    px4_dir + "/build/px4_sitl_default/etc",
+                    "-s",
+                    "etc/init.d-posix/rcS",
+                    "-i",
+                    LaunchConfiguration("id"),
+                    "",
                 ],
                 cwd=px4_dir,
+                additional_env={"PX4_SIM_SPEED_FACTOR": "1"},
                 output="screen",
             ),
-    ])
+        ]
+    )

@@ -18,8 +18,8 @@ def generate_launch_description():
                 cmd=[
                     "gnome-terminal",
                     "--",
-                    px4_dir + "/build/px4_sitl_default/bin/px4",
-                    px4_dir + "/build/px4_sitl_default/etc",
+                    px4_dir + "/px4_sitl_default/bin/px4",
+                    px4_dir + "/px4_sitl_default/etc",
                     "-s",
                     "etc/init.d-posix/rcS",
                     "-i",
@@ -27,7 +27,8 @@ def generate_launch_description():
                     "",
                 ],
                 cwd=px4_dir,
-                additional_env={"PX4_SIM_SPEED_FACTOR": "1"},
+                additional_env={"PX4_SIM_SPEED_FACTOR": "1",
+                                "PX4_SIM_MODEL": "gazebo-classic_omnicopter"},
                 output="screen",
             ),
         ]

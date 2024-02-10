@@ -28,7 +28,7 @@ def generate_launch_description():
                 ],
                 cwd=px4_dir,
                 additional_env={"PX4_SIM_SPEED_FACTOR": "1",
-                                "PX4_SIM_MODEL": "gazebo-classic_omnicopter"},
+                                "PX4_SIM_MODEL": "gazebo-classic_spacecraft"},
                 output="screen",
             ),
         ]

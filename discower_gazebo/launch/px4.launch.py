@@ -10,7 +10,6 @@ def generate_launch_description():
     """Launch Gazebo with a drone running PX4 communicating over ROS 2."""
 
     px4_dir = get_package_share_directory("px4")
-
     return LaunchDescription(
         [
             DeclareLaunchArgument("id", default_value="0"),
@@ -25,10 +24,11 @@ def generate_launch_description():
                     "-i",
                     LaunchConfiguration("id"),
                     "",
+
                 ],
                 cwd=px4_dir,
                 additional_env={"PX4_SIM_SPEED_FACTOR": "1",
-                                "PX4_SIM_MODEL": "gazebo-classic_omnicopter"},
+                                "PX4_SIM_MODEL": "gazebo-classic_2d_spacecraft"},
                 output="screen",
             ),
         ]

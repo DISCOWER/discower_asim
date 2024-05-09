@@ -20,18 +20,12 @@
 <robot name="orion" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- OPTIONS -->
-  <xacro:property name="world" value="$(arg world)"/>
-  <xacro:property name="pay_top_aft" value="$(arg top_aft)"/>
-  <xacro:property name="pay_bot_aft" value="$(arg bot_aft)"/>
-  <xacro:property name="pay_bot_front" value="$(arg bot_front)"/>
-  <xacro:property name="ns" value="$(arg ns)"/>
   <xacro:property name="prefix" value="$(arg prefix)"/>
   <xacro:if value="${prefix == '/'}">
     <xacro:property name="prefix" value=""/>
   </xacro:if>
 
-  <!-- BASE GEOMETRY -->
- <link name="${prefix}body">
+  <link name="${prefix}body">
     <self_collide>false</self_collide>
     <!-- body -->
     <visual>
@@ -63,6 +57,143 @@
     <child link="${prefix}inertial_link" />
   </joint>
 
+  <!-- Thrusters links and joints-->
+  <link name="${prefix}thruster_0">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="-0.12 0.12 0.2" rpy="0 1.5708 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_0_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_0" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_0_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_1">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0.12 0.12 0.2" rpy="0 -1.5708 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_1_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_1" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_1_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_2">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="-0.12 -0.12 0.2" rpy="0 1.5708 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_2_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_2" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_2_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_3">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0.12 -0.12 0.2" rpy="0 -1.5708 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_3_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_3" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_3_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_4">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0.12 0.12 0.2" rpy="1.5708 0 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_4_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_4" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_4_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_5">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0.12 -0.12 0.2" rpy="-1.5708 0 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_5_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_5" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_5_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_6">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="-0.12 0.12 0.2" rpy="1.5708 0 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_6_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_6" />
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_6_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
+  <link name="${prefix}thruster_7">
+    <self_collide>false</self_collide>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="-0.12 -0.12 0.2" rpy="-1.5708 0 0"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+  <joint name='${prefix}thruster_7_joint' type='fixed'>
+    <parent link="${prefix}body" />
+    <child link="${prefix}thruster_7" /> 
+    <use_parent_model_frame>1</use_parent_model_frame>
+  </joint>
+  <gazebo reference="${prefix}thruster_7_joint">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  </gazebo>
+
   <gazebo reference="${prefix}body">
     <kp>100000.0</kp>
     <kd>100000.0</kd>
@@ -72,10 +203,10 @@
   </gazebo>
 
   <!-- MODEL-->
-  <xacro:include filename="$(find discower_description)/urdf/model_drag.urdf.xacro" />
-  <xacro:include filename="$(find discower_description)/urdf/model_thrusters.urdf.xacro" />
-  <xacro:include filename="$(find discower_description)/urdf/model_truth.urdf.xacro" />
-  <xacro:include filename="$(find discower_description)/urdf/model_sitl.urdf.xacro" />
+  <xacro:include filename="$(find discower_description)/urdf/model_drag.urdf.xacro"/>
+  <xacro:include filename="$(find discower_description)/urdf/model_thrusters.urdf.xacro"/>
+  <xacro:include filename="$(find discower_description)/urdf/model_truth.urdf.xacro"/>
+  <xacro:include filename="$(find discower_description)/urdf/model_sitl.urdf.xacro"/>
 
   <!-- SENSORS -->
   <!-- <xacro:include filename="$(find discower_description)/urdf/sensor_imu.urdf.xacro" /> -->

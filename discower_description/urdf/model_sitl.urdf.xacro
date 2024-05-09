@@ -1,9 +1,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
- <gazebo>
-    <plugin name='rotors_gazebo_imu_plugin' filename='libgazebo_imu_plugin.so'>
+  <gazebo>
+    <plugin name='${prefix}rotors_gazebo_imu_plugin' filename='libgazebo_imu_plugin.so'>
       <robotNamespace/>
       <linkName>${prefix}body</linkName>
-      <imuTopic>/imu</imuTopic>
+      <imuTopic>${prefix}/imu</imuTopic>
       <gyroscopeNoiseDensity>0.00018665</gyroscopeNoiseDensity>
       <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
       <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
@@ -13,28 +13,28 @@
       <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
       <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
     </plugin>
-    <plugin name='groundtruth_plugin' filename='libgazebo_groundtruth_plugin.so'>
+    <plugin name='${prefix}groundtruth_plugin' filename='libgazebo_groundtruth_plugin.so'>
       <robotNamespace/>
     </plugin>
-    <plugin name='magnetometer_plugin' filename='libgazebo_magnetometer_plugin.so'>
+    <plugin name='${prefix}magnetometer_plugin' filename='libgazebo_magnetometer_plugin.so'>
       <robotNamespace/>
       <pubRate>100</pubRate>
       <noiseDensity>0.0004</noiseDensity>
       <randomWalk>6.4e-06</randomWalk>
       <biasCorrelationTime>600</biasCorrelationTime>
-      <magTopic>/mag</magTopic>
+      <magTopic>${prefix}/mag</magTopic>
     </plugin>
-    <plugin name='barometer_plugin' filename='libgazebo_barometer_plugin.so'>
+    <plugin name='${prefix}barometer_plugin' filename='libgazebo_barometer_plugin.so'>
       <robotNamespace/>
       <pubRate>50</pubRate>
-      <baroTopic>/baro</baroTopic>
+      <baroTopic>${prefix}/baro</baroTopic>
       <baroDriftPaPerSec>0</baroDriftPaPerSec>
     </plugin>
-    <plugin name='mavlink_interface' filename='libgazebo_mavlink_interface.so'>
+    <plugin name='${prefix}mavlink_interface' filename='libgazebo_mavlink_interface.so'>
       <robotNamespace/>
-      <imuSubTopic>/imu</imuSubTopic>
-      <magSubTopic>/mag</magSubTopic>
-      <baroSubTopic>/baro</baroSubTopic>
+      <imuSubTopic>${prefix}/imu</imuSubTopic>
+      <magSubTopic>${prefix}/mag</magSubTopic>
+      <baroSubTopic>${prefix}/baro</baroSubTopic>
       <mavlink_addr>INADDR_ANY</mavlink_addr>
       <mavlink_tcp_port>4560</mavlink_tcp_port>
       <mavlink_udp_port>14560</mavlink_udp_port>
@@ -51,101 +51,39 @@
       <send_odometry>1</send_odometry>
       <enable_lockstep>1</enable_lockstep>
       <use_tcp>1</use_tcp>
-      <motorSpeedCommandPubTopic>/gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+      <actuatorOutputsCommandPubTopic>${prefix}/gazebo/command/actuator_outputs</actuatorOutputsCommandPubTopic>
       <control_channels>
-        <channel name='rotor1'>
+        <channel name='thruster1'>
           <input_index>0</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>1000</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>100</zero_position_armed>
-          <joint_control_type>velocity</joint_control_type>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor2'>
+        <channel name='thruster2'>
           <input_index>1</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>1000</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>100</zero_position_armed>
-          <joint_control_type>velocity</joint_control_type>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor3'>
+        <channel name='thruster3'>
           <input_index>2</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>1000</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>100</zero_position_armed>
-          <joint_control_type>velocity</joint_control_type>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor4'>
+        <channel name='thruster4'>
           <input_index>3</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>1000</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>100</zero_position_armed>
-          <joint_control_type>velocity</joint_control_type>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor5'>
+        <channel name='thruster5'>
           <input_index>4</input_index>
-          <input_offset>1</input_offset>
-          <input_scaling>324.6</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>0</zero_position_armed>
-          <joint_control_type>velocity</joint_control_type>
-          <joint_control_pid>
-            <p>0.1</p>
-            <i>0</i>
-            <d>0</d>
-            <iMax>0.0</iMax>
-            <iMin>0.0</iMin>
-            <cmdMax>2</cmdMax>
-            <cmdMin>-2</cmdMin>
-          </joint_control_pid>
-          <joint_name>zephyr_delta_wing::propeller_joint</joint_name>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor6'>
+        <channel name='thruster6'>
           <input_index>5</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>0.524</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>0</zero_position_armed>
-          <joint_control_type>position</joint_control_type>
-          <joint_name>zephyr_delta_wing::flap_left_joint</joint_name>
-          <joint_control_pid>
-            <p>10.0</p>
-            <i>0</i>
-            <d>0</d>
-            <iMax>0</iMax>
-            <iMin>0</iMin>
-            <cmdMax>20</cmdMax>
-            <cmdMin>-20</cmdMin>
-          </joint_control_pid>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor7'>
+        <channel name='thruster7'>
           <input_index>6</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>0.524</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>0</zero_position_armed>
-          <joint_control_type>position</joint_control_type>
-          <joint_name>zephyr_delta_wing::flap_right_joint</joint_name>
-          <joint_control_pid>
-            <p>10.0</p>
-            <i>0</i>
-            <d>0</d>
-            <iMax>0</iMax>
-            <iMin>0</iMin>
-            <cmdMax>20</cmdMax>
-            <cmdMin>-20</cmdMin>
-          </joint_control_pid>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
-        <channel name='rotor8'>
+        <channel name='thruster8'>
           <input_index>7</input_index>
-          <input_offset>0</input_offset>
-          <input_scaling>0.524</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>0</zero_position_armed>
-          <joint_control_type>position</joint_control_type>
+          <joint_control_type>bypass</joint_control_type>
         </channel>
       </control_channels>
     </plugin>

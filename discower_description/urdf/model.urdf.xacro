@@ -62,13 +62,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="-0.12 0.12 0.2" rpy="0 1.5708 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_0_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_0" />
+    <origin xyz="-0.12 0.12 0.2" rpy="0 1.5708 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_0_joint">
@@ -79,13 +80,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0.12 0.12 0.2" rpy="0 -1.5708 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_1_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_1" />
+    <origin xyz="0.12 0.12 0.2" rpy="0 -1.5708 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_1_joint">
@@ -96,13 +98,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="-0.12 -0.12 0.2" rpy="0 1.5708 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_2_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_2" />
+    <origin xyz="-0.12 -0.12 0.2" rpy="0 1.5708 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_2_joint">
@@ -113,13 +116,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0.12 -0.12 0.2" rpy="0 -1.5708 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_3_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_3" />
+    <origin xyz="0.12 -0.12 0.2" rpy="0 -1.5708 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_3_joint">
@@ -130,13 +134,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0.12 0.12 0.2" rpy="1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_4_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_4" />
+    <origin xyz="0.12 0.12 0.2" rpy="1.5708 0 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_4_joint">
@@ -147,13 +152,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0.12 -0.12 0.2" rpy="-1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_5_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_5" />
+    <origin xyz="0.12 -0.12 0.2" rpy="-1.5708 0 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_5_joint">
@@ -164,13 +170,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="-0.12 0.12 0.2" rpy="1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_6_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_6" />
+    <origin xyz="-0.12 0.12 0.2" rpy="1.5708 0 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_6_joint">
@@ -181,13 +188,14 @@
     <self_collide>false</self_collide>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="-0.12 -0.12 0.2" rpy="-1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
   <joint name='${prefix}thruster_7_joint' type='fixed'>
     <parent link="${prefix}body" />
     <child link="${prefix}thruster_7" /> 
+    <origin xyz="-0.12 -0.12 0.2" rpy="-1.5708 0 0"/>
     <use_parent_model_frame>1</use_parent_model_frame>
   </joint>
   <gazebo reference="${prefix}thruster_7_joint">

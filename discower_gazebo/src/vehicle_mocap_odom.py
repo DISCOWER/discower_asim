@@ -2,24 +2,32 @@ import rclpy
 from rclpy.node import Node
 from px4_msgs.msg import VehicleOdometry
 from geometry_msgs.msg import PoseStamped, TwistStamped
+from nav_msgs.msg import Odometry
 
 class MyPublisher(Node):
 
     def __init__(self):
         super().__init__('my_publisher')
+        self.running_simulation = self.get_parameter_or('simulated', False)
         self.publisher_ = self.create_publisher(VehicleOdometry, '/fmu/in/vehicle_visual_odometry', 10)
-        self.sub_1 = self.create_subscription(PoseStamped, '/orion/loc/truth/pose', self.pose_cb, 10)
-        self.sub_2 = self.create_subscription(TwistStamped, '/orion/loc/truth/twist', self.twist_cb, 10)
-        timer_period = 0.001  # seconds
+        if self.running_simulation:
+            self.sub_1 = self.create_subscription(PoseStamped, '/orion/loc/truth/pose', self.pose_cb, 10)
+            self.sub_2 = self.create_subscription(TwistStamped, '/orion/loc/truth/twist', self.twist_cb, 10)
+        else:
+            self.sub_1 = self.create_subscription(Odometry, '/snap/odom', self.odom_cb, 10)
+
+        timer_period = 0.01  # seconds
         self.got_pose = False
         self.got_twist = False
+        self.got_odom = False
         self.pose = PoseStamped()
         self.twist = TwistStamped()
+        self.odom = Odometry()
         self.timer = self.create_timer(timer_period, self.publish_message)
 
     def publish_message(self):
 
-        if self.got_pose and self.got_twist:
+        if (self.got_pose and self.got_twist) or (self.got_odom):
             msg = VehicleOdometry()
 
             # Set time
@@ -46,6 +54,12 @@ class MyPublisher(Node):
     def twist_cb(self, msg):
         self.twist = msg
         self.got_twist = True
+
+    def odom_cb(self, msg):
+        self.pose = msg.pose
+        self.twist = msg.twist
+        self.got_odom = True
+
 
 def main(args=None):
     rclpy.init(args=args)

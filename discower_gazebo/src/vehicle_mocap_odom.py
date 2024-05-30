@@ -3,6 +3,9 @@ from rclpy.node import Node
 from px4_msgs.msg import VehicleOdometry
 from geometry_msgs.msg import PoseStamped, TwistStamped
 from nav_msgs.msg import Odometry
+import numpy as np
+
+from pyquaternion import Quaternion
 
 class MyPublisher(Node):
 
@@ -42,10 +45,19 @@ class MyPublisher(Node):
             # NED pose
             msg.position = [self.pose.pose.position.y, self.pose.pose.position.x, -self.pose.pose.position.z]
 
-            msg.q = [self.pose.pose.orientation.w, self.pose.pose.orientation.x, self.pose.pose.orientation.y, self.pose.pose.orientation.z]
+            att_q = Quaternion(self.pose.pose.orientation.w, self.pose.pose.orientation.x, self.pose.pose.orientation.y, self.pose.pose.orientation.z)
+            msg.q = self.rotateQuaternion(Quaternion(att_q))
             msg.velocity = [self.twist.twist.linear.x, -self.twist.twist.linear.y, -self.twist.twist.linear.z]
             msg.angular_velocity = [self.twist.twist.angular.x, -self.twist.twist.angular.y, -self.twist.twist.angular.z]
             self.publisher_.publish(msg)
+
+    def rotateQuaternion(self, q_FLU_to_ENU):
+        # quats are w x y z
+        q_FLU_to_FRD = Quaternion(0, 1, 0, 0)
+        q_ENU_to_NED = Quaternion(0, 0.70711, 0.70711, 0)
+
+        q_rot = q_ENU_to_NED * q_FLU_to_ENU * q_FLU_to_FRD.inverse
+        return [q_rot.w, q_rot.x, q_rot.y, q_rot.z]
 
     def pose_cb(self, msg):
         self.pose = msg

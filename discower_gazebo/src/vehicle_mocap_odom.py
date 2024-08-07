@@ -3,6 +3,7 @@ from rclpy.node import Node
 from px4_msgs.msg import VehicleOdometry
 from geometry_msgs.msg import PoseStamped, TwistStamped
 from nav_msgs.msg import Odometry
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 import numpy as np
 
 from pyquaternion import Quaternion
@@ -11,13 +12,20 @@ class MyPublisher(Node):
 
     def __init__(self):
         super().__init__('my_publisher')
+        qos_profile = QoSProfile(
+            reliability=QoSReliabilityPolicy.RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
+            durability=QoSDurabilityPolicy.RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL,
+            history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+            depth=1
+        )
+
         self.running_simulation = self.get_parameter_or('simulated', False)
-        self.publisher_ = self.create_publisher(VehicleOdometry, '/fmu/in/vehicle_visual_odometry', 10)
+        self.publisher_ = self.create_publisher(VehicleOdometry, '/fmu/in/vehicle_visual_odometry', qos_profile)
         if self.running_simulation:
-            self.sub_1 = self.create_subscription(PoseStamped, '/orion/loc/truth/pose', self.pose_cb, 10)
-            self.sub_2 = self.create_subscription(TwistStamped, '/orion/loc/truth/twist', self.twist_cb, 10)
+            self.sub_1 = self.create_subscription(PoseStamped, '/orion/loc/truth/pose', self.pose_cb, 1)
+            self.sub_2 = self.create_subscription(TwistStamped, '/orion/loc/truth/twist', self.twist_cb, 1)
         else:
-            self.sub_1 = self.create_subscription(Odometry, '/snap/odom', self.odom_cb, 10)
+            self.sub_1 = self.create_subscription(Odometry, '/snap/odom', self.odom_cb, 1)
 
         timer_period = 0.01  # seconds
         self.got_pose = False
